@@ -1,24 +1,17 @@
 import 'dart:io';
-import 'package:betterhodl_flutter/core/network/api_status.dart';
+
 import 'package:http/http.dart' as http;
 
-class NetworkException implements Exception {
-  String message;
-  int code;
+import '../../adapters/rest_adapter.dart';
+import 'api_status.dart';
 
-  NetworkException(this.message, this.code);
 
-  @override
-  String toString() {
-    return '$message: response code: $code';
-  }
-}
-
-class RestService<T> {
+class RestService<T> implements RestAdapter{
   final http.Client client;
 
   RestService(this.client);
 
+  @override
   Future<Object> get(String url, Function decode) async {
     try {
       final response = await client.get(Uri.parse(url));
@@ -30,5 +23,19 @@ class RestService<T> {
     } on SocketException {
       return Failure(code: 101, error: 'No internet connection');
     }
+  }
+
+}
+
+
+class NetworkException implements Exception {
+  String message;
+  int code;
+
+  NetworkException(this.message, this.code);
+
+  @override
+  String toString() {
+    return '$message: response code: $code';
   }
 }

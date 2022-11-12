@@ -1,4 +1,4 @@
-import 'package:betterhodl_flutter/core/network/socket_service.dart';
+import 'package:betterhodl_flutter/data/services/socket_service/socket_service.dart';
 import 'package:betterhodl_flutter/domain/models/market_coin.dart';
 import 'package:betterhodl_flutter/view_models/market_coins_view_model.dart';
 import 'package:flutter_test/flutter_test.dart';

@@ -1,8 +1,8 @@
 import 'dart:ffi';
 import 'dart:io';
 
-import 'package:betterhodl_flutter/core/network/api_status.dart';
-import 'package:betterhodl_flutter/core/network/rest_service.dart';
+import 'package:betterhodl_flutter/data/services/rest_service/api_status.dart';
+import 'package:betterhodl_flutter/data/services/rest_service/rest_service.dart';
 import 'package:betterhodl_flutter/domain/models/market_coin.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;

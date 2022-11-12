@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:betterhodl_flutter/core/network/api_status.dart';
-import 'package:betterhodl_flutter/core/network/rest_service.dart';
-import 'package:betterhodl_flutter/core/network/socket_service.dart';
+import 'package:betterhodl_flutter/data/services/rest_service/api_status.dart';
+import 'package:betterhodl_flutter/data/services/rest_service/rest_service.dart';
+import 'package:betterhodl_flutter/data/services/socket_service/socket_service.dart';
 import 'package:betterhodl_flutter/domain/models/market_coin.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
