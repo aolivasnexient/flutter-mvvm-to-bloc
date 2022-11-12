@@ -2,17 +2,15 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 
-import '../../adapters/rest_adapter.dart';
 import 'api_status.dart';
 
 
-class RestService<T> implements RestAdapter{
+class RestService<T>{
   final http.Client client;
 
   RestService(this.client);
 
-  @override
-  Future<Object> get(String url, Function decode) async {
+  Future<Object> get(String url,  Function decode) async {
     try {
       final response = await client.get(Uri.parse(url));
       if (200 == response.statusCode) {

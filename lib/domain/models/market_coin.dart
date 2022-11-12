@@ -41,7 +41,7 @@ class MarketCoin {
       required this.atlChangePercentage,
       required this.atlDate});
 
-  factory MarketCoin.fromJson(dynamic json) {
+  factory MarketCoin.fromJson(Map json) {
     return MarketCoin(
       id: json['id'] as String,
       symbol: json['symbol'] as String,
