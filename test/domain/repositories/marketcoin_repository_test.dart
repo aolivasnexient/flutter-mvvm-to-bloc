@@ -110,9 +110,7 @@ void main() {
         currentCoin.currentPrice != currentValue, 
         true
       );
-
       await streamResult.first;
-
       expect(
         currentCoin.currentPrice == currentValue, 
         true
