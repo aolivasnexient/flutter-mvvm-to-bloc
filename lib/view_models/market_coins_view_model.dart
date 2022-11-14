@@ -78,7 +78,6 @@ class MarketCoinsViewModel extends ChangeNotifier {
   }
 
   livePriceUpdate(dynamic event) {
-    print(event);
     updateMarketCoin(json.decode(event));
   }
 

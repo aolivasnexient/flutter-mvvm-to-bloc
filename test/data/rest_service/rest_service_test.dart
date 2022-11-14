@@ -1,4 +1,6 @@
 
+import 'dart:io';
+
 import 'package:betterhodl_flutter/data/services/rest_service/rest_service_v2.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -112,7 +114,6 @@ void main() {
 
 
 
-
   group("Rest Service -", () {
     test('handles 200 response with data', () async {
       
@@ -130,6 +131,12 @@ void main() {
     
     test("Handles non-200 responses", () async {
       when(client.get(Uri.parse(url))).thenAnswer(( _ ) async => http.Response('', 403, reasonPhrase: ''));
+      await expectLater(restService.get(url), throwsA(isA<NetworkException>()));
+    },);
+
+
+    test('handles failure from SocketException', () async {
+      when(client.get(Uri.parse(url))).thenAnswer(( _ ) async => throw const SocketException("No internet connection"));
       await expectLater(restService.get(url), throwsA(isA<NetworkException>()));
     },);
 

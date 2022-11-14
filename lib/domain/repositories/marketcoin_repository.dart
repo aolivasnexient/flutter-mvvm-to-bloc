@@ -3,18 +3,18 @@ import 'package:betterhodl_flutter/data/services/socket_service/socket_service_v
 
 import '../models/market_coin.dart';
 
-class CoinMarketRepository {
+class MarketCoinRepository {
 
   Map<String, MarketCoin> marketCoinMap = {};
 
-  final RestAdapter restAdaptar;
+  final RestAdapter restAdapter;
   final SocketService socketService;
 
-  CoinMarketRepository(this.restAdaptar, this.socketService);
+  MarketCoinRepository(this.restAdapter, this.socketService);
 
   Future<List<MarketCoin>> fethAllMarketCoin(String url) async {
     // TODO : HERE NEED TO CREATE APP LAYER
-    final data = await restAdaptar.get<List<Map>>(url);
+    final data = (await restAdapter.get(url)) as List<Map>;
     final marketCoins =  data.map((e) => MarketCoin.fromJson(e)).toList();
     for (var marketCoin in marketCoins) {
       marketCoinMap[marketCoin.name] = marketCoin;
