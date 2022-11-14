@@ -17,7 +17,7 @@ class MarketCoinRepository {
     final data = (await restAdapter.get(url)) as List<Map>;
     final marketCoins =  data.map((e) => MarketCoin.fromJson(e)).toList();
     for (var marketCoin in marketCoins) {
-      marketCoinMap[marketCoin.name] = marketCoin;
+      marketCoinMap[marketCoin.name.toLowerCase()] = marketCoin;
     }
     return marketCoins;
   
@@ -29,7 +29,7 @@ class MarketCoinRepository {
       final mapEntries = event.entries;
       for (var entry in mapEntries) {
         marketCoinMap.update(
-          entry.value, 
+          entry.key, 
           (coin) => coin..currentPrice = double.parse(entry.value as String)
         );
       }

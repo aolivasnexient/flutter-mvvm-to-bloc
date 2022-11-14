@@ -121,7 +121,7 @@ void main() {
       final result = await restService.get<List>(url);
       
       expect(result, isA<List>());
-      expect(result.length, 2);
+      expect(result.length, convertedData.length);
       expect( result.first, isA<Map>());
       expect(mapEquals(result.first, convertedData.first), true);
       expect(mapEquals(result.last, convertedData.last), true);

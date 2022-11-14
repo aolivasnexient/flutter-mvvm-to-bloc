@@ -63,6 +63,25 @@ class MarketCoin {
     );
   }
 
+  toJson() => {
+    "id":id,
+    "symbol":symbol,
+    "name":name,
+    "image":image,
+    "current_price":currentPrice,
+    "market_cap":marketCap,
+    "market_cap_rank":marketCapRank,
+    "high_24h":high24h,
+    "low_24h":low24h,
+    "price_change_24h":priceChange24h,
+    "price_change_percentage_24h": priceChangePercentage24h,
+    "ath": ath,
+    "ath_change_percentage": ath,
+    "ath_date": athDate.toString(),
+    "atl": atl,
+    "atl_change_percentage": atlChangePercentage,
+    "atl_date": atlDate.toString()};
+
   // market data is inconsistent between int and double values
   static double toDouble(dynamic value) {
     if (value != null) {

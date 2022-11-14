@@ -14,11 +14,11 @@ import 'marketcoin_repository_test.mocks.dart';
 ])
 void main() {
   
-  late MarketCoinRepository coinMarketRepository;
+  late MarketCoinRepository marketCoinRepository;
   final socketService =  MockSocketService();
   final restAdapter = MockRestServiceV2();
   const url = 'https://nexient.com';
-  setUpAll(() => coinMarketRepository = MarketCoinRepository(restAdapter, socketService));
+  setUpAll(() => marketCoinRepository = MarketCoinRepository(restAdapter, socketService));
 
   final List<Map> dataFromService = [
   {
@@ -66,6 +66,13 @@ void main() {
     "roi":null,
     "last_updated":"2022-06-16T19:53:23.628Z"}];
 
+  
+  final rawDataStream = [
+    {"bitcoin":"16538.73"},
+    {"bitcoin":"16538.56"},
+    {"bitcoin":"16538.60"},
+  ];
+
   group("CoinMarket Repository -", () {
     
     test("model from json", () async {
@@ -75,9 +82,46 @@ void main() {
 
     test("fetching all marketcoins", () async{
       when(restAdapter.get(url)).thenAnswer(( _ ) async => dataFromService );
-      final result = await coinMarketRepository.fethAllMarketCoin(url);
+      final result = await marketCoinRepository.fethAllMarketCoin(url);
       expect(result, isList );
-      expect(result.length, 2 );
+      expect(result.length, dataFromService.length );
+      expect(marketCoinRepository.marketCoinMap.length, dataFromService.length);
+      for (var coin in result) {
+        expect(marketCoinRepository.marketCoinMap.containsKey(coin.name), true);
+        expect(marketCoinRepository.marketCoinMap.containsValue(coin), true);
+      }
+    },);
+
+    test("Stream Coin", () async {
+
+      final marketCoinRepo = MarketCoinRepository(restAdapter, socketService);
+      final dataStream = Stream.fromIterable(rawDataStream);
+      
+      when(restAdapter.get(url)).thenAnswer(( _ ) async => dataFromService );
+      when(socketService.connectAndListen(uri: Uri.parse(url))).thenAnswer((_) => dataStream);
+      
+      await marketCoinRepo.fethAllMarketCoin(url);
+      final streamResult = marketCoinRepo.dataBaseStream(url);
+
+      final currentCoin = marketCoinRepo.marketCoinMap[rawDataStream.first.keys.first]!;
+      final currentValue = double.parse(rawDataStream.first.values.first);
+
+      expect(
+        currentCoin.currentPrice != currentValue, 
+        true
+      );
+
+      await streamResult.first;
+      
+      expect(
+        currentCoin.currentPrice == currentValue, 
+        true
+      );
+
+      final result = await streamResult.toList();
+      expect(dataStream, emitsInOrder(rawDataStream));
+      expect(result.length, rawDataStream.length);
+
     },);
 
 
