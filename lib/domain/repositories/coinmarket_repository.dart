@@ -1,7 +1,5 @@
-import 'dart:convert';
-
 import 'package:betterhodl_flutter/data/adapters/rest_adapter.dart';
-import 'package:betterhodl_flutter/data/services/socket_service/socket_service.dart';
+import 'package:betterhodl_flutter/data/services/socket_service/socket_service_v2.dart';
 
 import '../models/market_coin.dart';
 
@@ -23,6 +21,20 @@ class CoinMarketRepository {
     }
     return marketCoins;
   
+  }
+
+  Stream<List<MarketCoin>> dataBaseStream(url) {
+    final streamDb =  socketService.connectAndListen<Map>(uri: Uri.parse(url));
+    return streamDb.map((event){
+      final mapEntries = event.entries;
+      for (var entry in mapEntries) {
+        marketCoinMap.update(
+          entry.value, 
+          (coin) => coin..currentPrice = double.parse(entry.value as String)
+        );
+      }
+      return marketCoinMap.values.toList();
+    });
   }
 
 }

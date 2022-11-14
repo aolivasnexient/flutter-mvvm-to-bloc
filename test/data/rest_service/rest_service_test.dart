@@ -133,8 +133,6 @@ void main() {
       await expectLater(restService.get(url), throwsA(isA<NetworkException>()));
     },);
 
-
-
   },);
 
 }

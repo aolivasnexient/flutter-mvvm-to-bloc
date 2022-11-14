@@ -8,7 +8,8 @@ class SocketService {
   connectAndListen(
       {required Uri uri,
       required Function callback,
-      required Function errorCallBack}) {
+      required Function errorCallBack}
+    ) {
     channel = WebSocketChannel.connect(uri);
     channel.stream.listen((event) => callback(event),
         onError: (error) => errorCallBack(error));
