@@ -2,7 +2,7 @@
 // Adapter Pattern
 abstract class RestAdapter {
 
-  Future<String> get(String url);
+  Future<T> get<T>(String url);
 
 }
 

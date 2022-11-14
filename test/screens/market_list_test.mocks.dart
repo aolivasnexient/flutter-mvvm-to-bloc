@@ -4,7 +4,8 @@
 
 import 'dart:ui' as _i6;
 
-import 'package:betterhodl_flutter/data/services/socket_service/socket_service.dart' as _i3;
+import 'package:betterhodl_flutter/data/services/socket_service/socket_service.dart'
+    as _i3;
 import 'package:betterhodl_flutter/domain/models/market_coin.dart' as _i5;
 import 'package:betterhodl_flutter/view_models/market_coins_view_model.dart'
     as _i4;

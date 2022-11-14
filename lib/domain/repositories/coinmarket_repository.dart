@@ -16,22 +16,15 @@ class CoinMarketRepository {
 
   Future<List<MarketCoin>> fethAllMarketCoin(String url) async {
     // TODO : HERE NEED TO CREATE APP LAYER
-    final data = await restAdaptar.get(url);
-    final marketCoins =  _decodeData(data);
+    final data = await restAdaptar.get<List<Map>>(url);
+    final marketCoins =  data.map((e) => MarketCoin.fromJson(e)).toList();
     for (var marketCoin in marketCoins) {
-      marketCoinMap[marketCoin.name] = marketCoin; 
+      marketCoinMap[marketCoin.name] = marketCoin;
     }
     return marketCoins;
   
   }
 
-  List<MarketCoin> _decodeData(String data){
-
-    final decodeData = json.decode(data);
-    final models = (decodeData as List<Map>).map((e) => MarketCoin.fromJson(e));
-    return models.toList();
-
-  }
 }
 
 
