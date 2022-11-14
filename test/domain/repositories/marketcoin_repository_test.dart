@@ -110,11 +110,13 @@ void main() {
         currentCoin.currentPrice != currentValue, 
         true
       );
-      await streamResult.first;
+      final coinsEmitted = await streamResult.first;
       expect(
         currentCoin.currentPrice == currentValue, 
         true
       );
+
+      expect(coinsEmitted.first.currentPrice == currentValue, true);
 
       final result = await streamResult.toList();
       expect(dataStream, emitsInOrder(rawDataStream));

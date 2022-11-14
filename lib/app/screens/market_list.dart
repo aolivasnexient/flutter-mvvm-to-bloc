@@ -1,6 +1,6 @@
 import 'package:betterhodl_flutter/core/components/app_loading.dart';
-import 'package:betterhodl_flutter/screens/coin_detail.dart';
-import 'package:betterhodl_flutter/screens/market_list_card.dart';
+import 'package:betterhodl_flutter/app/screens/coin_detail.dart';
+import 'package:betterhodl_flutter/app/screens/market_list_card.dart';
 import 'package:betterhodl_flutter/view_models/market_coins_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
