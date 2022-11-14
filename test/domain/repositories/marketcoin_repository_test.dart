@@ -87,7 +87,7 @@ void main() {
       expect(result.length, dataFromService.length );
       expect(marketCoinRepository.marketCoinMap.length, dataFromService.length);
       for (var coin in result) {
-        expect(marketCoinRepository.marketCoinMap.containsKey(coin.name), true);
+        expect(marketCoinRepository.marketCoinMap.containsKey(coin.name.toLowerCase()), true);
         expect(marketCoinRepository.marketCoinMap.containsValue(coin), true);
       }
     },);
@@ -112,7 +112,7 @@ void main() {
       );
 
       await streamResult.first;
-      
+
       expect(
         currentCoin.currentPrice == currentValue, 
         true
