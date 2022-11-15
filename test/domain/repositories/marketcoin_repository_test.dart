@@ -103,18 +103,14 @@ void main() {
       await marketCoinRepo.fethAllMarketCoin(url);
       final streamResult = marketCoinRepo.dataBaseStream(url);
 
-      final currentCoin = marketCoinRepo.marketCoinMap[rawDataStream.first.keys.first]!;
+      MarketCoin currentCoin = marketCoinRepo.marketCoinMap[rawDataStream.first.keys.first]!;
       final currentValue = double.parse(rawDataStream.first.values.first);
 
-      expect(
-        currentCoin.currentPrice != currentValue, 
-        true
-      );
+      expect(currentCoin.currentPrice != currentValue, true, reason: "Incomming price != Current Price");
+
       final coinsEmitted = await streamResult.first;
-      expect(
-        currentCoin.currentPrice == currentValue, 
-        true
-      );
+      currentCoin = marketCoinRepo.marketCoinMap[rawDataStream.first.keys.first]!;
+      expect(currentCoin.currentPrice == currentValue, true, reason: "Incoming price == Current Price");
 
       expect(coinsEmitted.first.currentPrice == currentValue, true);
 
