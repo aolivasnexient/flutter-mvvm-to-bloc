@@ -2,18 +2,19 @@ import 'dart:convert';
 
 import 'package:web_socket_channel/web_socket_channel.dart';
 
-class SocketService {
+class SocketServiceV2 {
   late WebSocketChannel channel;
 
-  SocketService();
+  SocketServiceV2();
 
   Stream<T> connectAndListen<T>({required Uri uri,}) {
     channel = WebSocketChannel.connect(uri);
-    return channel.stream.map<T>((event) => json.decode(event));
+    return channel.stream.map<T>((event) => json.decode(event)
+  );
   }
 
-  stopListening() {
-    channel.sink.close();
+  Future<void> stopListening() async{
+    await channel.sink.close();
   }
 }
 /*

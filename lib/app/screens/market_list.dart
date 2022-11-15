@@ -1,79 +1,120 @@
-import 'package:betterhodl_flutter/core/components/app_loading.dart';
+import 'package:betterhodl_flutter/app/widgets/app_loading.dart';
 import 'package:betterhodl_flutter/app/screens/coin_detail.dart';
 import 'package:betterhodl_flutter/app/screens/market_list_card.dart';
-import 'package:betterhodl_flutter/view_models/market_coins_view_model.dart';
+import 'package:betterhodl_flutter/domain/repositories/marketcoin_repository.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../logic/market_coin_bloc/market_coin_bloc.dart';
+import '../widgets/socket_button.dart';
 
 class MarketList extends StatelessWidget {
   const MarketList({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    MarketCoinsViewModel marketCoinViewModels =
-        context.watch<MarketCoinsViewModel>();
-    return Scaffold(
-        appBar: AppBar(
-          title: const Text('BetterHodl'),
-          actions: [
-            IconButton(
-                onPressed: () {
-                  marketCoinViewModels.toggleLivePricing();
-                },
-                icon: const Icon(Icons.add_alert))
-          ],
-        ),
-        body: Center(child: buildUI(marketCoinViewModels)));
+    return BlocProvider(
+      create: (context) => MarketCoinBloc(RepositoryProvider.of<MarketCoinRepository>(context)),
+      child: const Scaffold(
+          appBar: _CoinAppBar(),
+          body: Center(child: _CoinTable()),
+    ));
   }
+}
 
-  buildUI(MarketCoinsViewModel marketCoinsViewModel) {
-    if (marketCoinsViewModel.loading) {
-      return const AppLoading();
-    }
-    return Column(children: [
-      Row(children: [
-        const Expanded(flex: 10, child: Text('Rank')),
-        const Expanded(
-            flex: 9,
-            child:
-                Align(alignment: Alignment.centerRight, child: Text('Coin'))),
-        const Expanded(
-            flex: 32,
-            child:
-                Align(alignment: Alignment.centerRight, child: Text('Price'))),
-        const Expanded(
-            flex: 20,
-            child: Align(alignment: Alignment.centerRight, child: Text('24H'))),
-        Expanded(
-            flex: 30,
-            child: Align(
-                alignment: Alignment.centerRight,
-                child: TextButton(
-                    key: const ValueKey('market_list_market_cap_button'),
-                    child: const Text('Market Cap'),
-                    onPressed: () {
-                      marketCoinsViewModel.sortOrder =
-                          marketCoinsViewModel.sortOrder ==
-                                  SortOrders.marketCapDesc
-                              ? SortOrders.marketCapAsc
-                              : SortOrders.marketCapDesc;
-                      marketCoinsViewModel.sort();
-                    })))
-      ]),
-      Expanded(
-          child: ListView.builder(
-              itemCount: marketCoinsViewModel.marketCoins.length,
+
+
+class _CoinAppBar extends StatelessWidget with PreferredSizeWidget {
+  const _CoinAppBar({Key? key,}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      title: const Text('BetterHodl'),
+      actions: [
+        BlocBuilder<MarketCoinBloc, MarketCoinState>(
+          buildWhen: (previous, current) => previous.isLivePricing != current.isLivePricing,
+          builder: (context, state) {
+            final isLiveActive = state.isLivePricing;
+            return SocketButton(
+              isActive: isLiveActive,
+              onPressed: () => context.read<MarketCoinBloc>().add(SetLivePrincingEvent(!isLiveActive)), 
+            );
+          },
+        )
+      ],
+    );
+  }
+  @override
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+
+}
+
+
+class _CoinTable extends StatelessWidget {
+  const _CoinTable();
+
+  @override
+  Widget build(BuildContext context) {
+    BlocProvider.of<MarketCoinBloc>(context, listen: false).add(RequestMarketCoinsEvent());
+    return BlocBuilder<MarketCoinBloc, MarketCoinState>(
+      builder: (context, state) {
+
+        if (state.isLoading) {
+          return const AppLoading();
+        }
+
+        return Column(children: [
+          Row(children: [
+            Expanded(
+              flex: 3,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: const [
+                  Text('Rank'),
+                  Text('Coin'),
+                  SizedBox(
+                    width: 25,
+                  ),
+                  Text('Price'),
+                  SizedBox(
+                    width: 20,
+                  ),
+                  Text('24H'),
+                  SizedBox(),
+                ],
+              ),
+            ),
+
+            Expanded(
+              child: TextButton(
+                  key: const ValueKey('market_list_market_cap_button'),
+                  child: const Text('Market Cap'),
+                  onPressed: () {
+                    context.read<MarketCoinBloc>().add(SortMarketCoinsEvent());      
+                  }),
+            )
+          ]),
+
+
+          Expanded(
+            child: ListView.builder(
+              itemCount: state.marketCoins.length,
               itemBuilder: (context, index) {
-                final marketCoin = marketCoinsViewModel.marketCoins[index];
+                final marketCoin = state.marketCoins[index];
                 return GestureDetector(
-                    child: MarketListCard(marketCoin: marketCoin),
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => CoinDetail(marketCoin)));
-                    });
-              }))
-    ]);
+                  child: MarketListCard(marketCoin: marketCoin),
+                  onTap: () {
+                    Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => CoinDetail(marketCoin)));
+                   }
+                );
+              },
+            )
+          )
+
+        ]);
+      },
+    );
   }
 }

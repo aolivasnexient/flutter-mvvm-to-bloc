@@ -3,7 +3,7 @@ import 'dart:convert';
 List<MarketCoin> marketCoinsFromJson(String str) =>
     List<MarketCoin>.from(json.decode(str).map((x) => MarketCoin.fromJson(x)));
 
-class MarketCoin {
+class MarketCoin{
   final String id;
   final String symbol;
   final String name;
@@ -63,6 +63,25 @@ class MarketCoin {
     );
   }
 
+  MarketCoin copyFrom({required double newCurrentPrice} ) => MarketCoin(
+    id: id, 
+    symbol: symbol, 
+    name: name, 
+    image: image, 
+    currentPrice: newCurrentPrice, 
+    marketCap: marketCap, 
+    marketCapRank: marketCapRank, 
+    high24h: high24h, 
+    low24h: low24h, 
+    priceChange24h: priceChange24h, 
+    priceChangePercentage24h: priceChangePercentage24h, 
+    ath: ath, 
+    athChangePercentage: athChangePercentage, 
+    athDate: athDate, 
+    atl: atl, 
+    atlChangePercentage: atlChangePercentage, 
+    atlDate: atlDate);
+
   toJson() => {
     "id":id,
     "symbol":symbol,
@@ -95,4 +114,5 @@ class MarketCoin {
   static DateTime toDate(String value) {
     return DateTime.parse(value);
   }
+ 
 }

@@ -10,12 +10,12 @@ import 'marketcoin_repository_test.mocks.dart';
 
 @GenerateNiceMocks([
   MockSpec<RestServiceV2>(),
-  MockSpec<SocketService>()
+  MockSpec<SocketServiceV2>()
 ])
 void main() {
   
   late MarketCoinRepository marketCoinRepository;
-  final socketService =  MockSocketService();
+  final socketService =  MockSocketServiceV2();
   final restAdapter = MockRestServiceV2();
   const url = 'https://nexient.com';
   setUpAll(() => marketCoinRepository = MarketCoinRepository(restAdapter, socketService));
