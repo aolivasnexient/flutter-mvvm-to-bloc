@@ -5,7 +5,6 @@ import 'package:betterhodl_flutter/domain/repositories/marketcoin_repository.dar
 import 'package:betterhodl_flutter/view_models/market_coins_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
 
 import 'data/services/rest_service/rest_service_v2.dart';
