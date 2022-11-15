@@ -27,16 +27,12 @@ class MyApp extends StatelessWidget {
       providers: [
         RepositoryProvider(create: ( _ ) => MarketCoinRepository(RestServiceV2(http.Client()), SocketServiceV2()),)
       ],
-      child: MultiProvider(
-          providers: [
-            ChangeNotifierProvider(create: (_) => marketCoinViewModels)
-          ],
-          child: MaterialApp(
-            debugShowCheckedModeBanner: false,
-            title: 'Flutter Demo',
-            theme: ThemeData.dark(),
-            home: const MarketList(),
-          )),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Flutter Demo',
+        theme: ThemeData.dark(),
+        home: const MarketList(),
+      ),
     );
   }
 }
