@@ -40,6 +40,13 @@ class MarketCoinRepository {
     await socketService.stopListening();
   }
 
+  List<MarketCoin> reverseOrder(){
+    final entries = marketCoinMap.entries.toList().reversed;
+    marketCoinMap.clear();
+    marketCoinMap.addEntries(entries);
+    return marketCoinMap.values.toList();
+  }
+
 }
 
 

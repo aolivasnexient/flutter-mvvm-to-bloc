@@ -37,7 +37,8 @@ class MarketCoinBloc extends Bloc<MarketCoinEvent, MarketCoinState> {
   }
 
   sortEventController(SortMarketCoinsEvent event , Emitter<MarketCoinState> emit)async{
-    emit(state.copyWith(marketCoins: [...state.marketCoins.reversed]));
+    final reversedData = marketCoinRepository.reverseOrder();
+    emit(state.copyWith(marketCoins: reversedData));
   }
 
   setLiveController(SetLivePrincingEvent event , Emitter<MarketCoinState> emit)async{
