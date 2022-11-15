@@ -98,7 +98,8 @@ class _CoinTable extends StatelessWidget {
 
 
           Expanded(
-            child: ListView.builder(
+            child: ListView.separated(
+              separatorBuilder: (context, index) => const Divider(),
               itemCount: state.marketCoins.length,
               itemBuilder: (context, index) {
                 final marketCoin = state.marketCoins[index];

@@ -9,6 +9,7 @@ class MarketListCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final percentColor = marketCoin.priceChangePercentage24h > 0 ? Colors.green.shade300 : Colors.red.shade400;
     return Row(children: [
       Expanded(
           flex: 7,
@@ -28,7 +29,7 @@ class MarketListCard extends StatelessWidget {
           flex: 25,
           child: Align(
               alignment: Alignment.centerRight,
-              child: Text(formatPercent(marketCoin.priceChangePercentage24h)))),
+              child: Text(formatPercent(marketCoin.priceChangePercentage24h), style: TextStyle(color: percentColor),))),
       Expanded(
           flex: 30,
           child: Align(
