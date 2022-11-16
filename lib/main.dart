@@ -1,5 +1,5 @@
 import 'package:betterhodl_flutter/data/services/socket_service/socket_service.dart';
-import 'package:betterhodl_flutter/app/screens/market_list.dart';
+import 'package:betterhodl_flutter/app/presentation/screens/market_list.dart';
 import 'package:betterhodl_flutter/data/services/socket_service/socket_service_v2.dart';
 import 'package:betterhodl_flutter/domain/repositories/marketcoin_repository.dart';
 import 'package:betterhodl_flutter/view_models/market_coins_view_model.dart';

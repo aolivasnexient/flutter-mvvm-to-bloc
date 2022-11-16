@@ -1,7 +1,7 @@
 import 'dart:ffi';
 
 import 'package:betterhodl_flutter/domain/models/market_coin.dart';
-import 'package:betterhodl_flutter/app/screens/market_list.dart';
+import 'package:betterhodl_flutter/app/presentation/screens/market_list.dart';
 import 'package:betterhodl_flutter/view_models/market_coins_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';

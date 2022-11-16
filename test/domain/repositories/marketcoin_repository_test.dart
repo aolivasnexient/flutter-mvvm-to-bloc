@@ -18,7 +18,9 @@ void main() {
   final socketService =  MockSocketServiceV2();
   final restAdapter = MockRestServiceV2();
   const url = 'https://nexient.com';
-  setUpAll(() => marketCoinRepository = MarketCoinRepository(restAdapter, socketService));
+  setUp(() {
+     marketCoinRepository = MarketCoinRepository(restAdapter, socketService);
+  },);
 
   final List<Map> dataFromService = [
   {
@@ -94,22 +96,21 @@ void main() {
 
     test("Stream Coin", () async {
 
-      final marketCoinRepo = MarketCoinRepository(restAdapter, socketService);
       final dataStream = Stream.fromIterable(rawDataStream);
       
       when(restAdapter.get(url)).thenAnswer(( _ ) async => dataFromService );
       when(socketService.connectAndListen(uri: Uri.parse(url))).thenAnswer((_) => dataStream);
       
-      await marketCoinRepo.fethAllMarketCoin(url);
-      final streamResult = marketCoinRepo.dataBaseStream(url);
+      await marketCoinRepository.fethAllMarketCoin(url);
+      final streamResult = marketCoinRepository.dataBaseStream(url);
 
-      MarketCoin currentCoin = marketCoinRepo.marketCoinMap[rawDataStream.first.keys.first]!;
+      MarketCoin currentCoin = marketCoinRepository.marketCoinMap[rawDataStream.first.keys.first]!;
       final currentValue = double.parse(rawDataStream.first.values.first);
 
       expect(currentCoin.currentPrice != currentValue, true, reason: "Incomming price != Current Price");
 
       final coinsEmitted = await streamResult.first;
-      currentCoin = marketCoinRepo.marketCoinMap[rawDataStream.first.keys.first]!;
+      currentCoin = marketCoinRepository.marketCoinMap[rawDataStream.first.keys.first]!;
       expect(currentCoin.currentPrice == currentValue, true, reason: "Incoming price == Current Price");
 
       expect(coinsEmitted.first.currentPrice == currentValue, true);

@@ -1,11 +1,11 @@
-import 'package:betterhodl_flutter/app/widgets/app_loading.dart';
-import 'package:betterhodl_flutter/app/screens/coin_detail.dart';
-import 'package:betterhodl_flutter/app/screens/market_list_card.dart';
+import 'package:betterhodl_flutter/app/presentation/widgets/app_loading.dart';
+import 'package:betterhodl_flutter/app/presentation/screens/coin_detail.dart';
+import 'package:betterhodl_flutter/app/presentation/screens/market_list_card.dart';
 import 'package:betterhodl_flutter/domain/repositories/marketcoin_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../logic/market_coin_bloc/market_coin_bloc.dart';
+import '../../logic/market_coin_bloc/market_coin_bloc.dart';
 import '../widgets/socket_button.dart';
 
 class MarketList extends StatelessWidget {

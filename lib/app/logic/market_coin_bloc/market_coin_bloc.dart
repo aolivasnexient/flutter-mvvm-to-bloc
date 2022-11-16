@@ -48,7 +48,7 @@ class MarketCoinBloc extends Bloc<MarketCoinEvent, MarketCoinState> {
       return;
     } 
     emit(state.copyWith(isLivePricing: true));
-    await emit.forEach<List<MarketCoin>>(
+    await emit.forEach<List<MarketCoin>>( // <----- HERE STREAM ENDS
       marketCoinRepository.dataBaseStream(_getLivePriceQuery()), 
       onError: (error, stackTrace) => state.copyWith(isError: true,errorMsg: error.toString()),
       onData: (data) => state.copyWith(marketCoins: data ,isError: false)
