@@ -15,7 +15,7 @@ class MarketCoinBloc extends Bloc<MarketCoinEvent, MarketCoinState> {
   
 
   MarketCoinBloc(this.marketCoinRepository) : super(
-    const MarketCoinState(isLoading: true , isError: false, isLivePricing: false, marketCoins: [])
+    const MarketCoinState(isLoading: false , isError: false, isLivePricing: false, marketCoins: [])
     ) {
     on<RequestMarketCoinsEvent>(requestEventController);
     on<SortMarketCoinsEvent>(sortEventController);
@@ -38,7 +38,7 @@ class MarketCoinBloc extends Bloc<MarketCoinEvent, MarketCoinState> {
 
   sortEventController(SortMarketCoinsEvent event , Emitter<MarketCoinState> emit)async{
     final reversedData = marketCoinRepository.reverseOrder();
-    emit(state.copyWith(marketCoins: reversedData));
+    emit(state.copyWith(marketCoins: reversedData, isLoading: false));
   }
 
   setLiveController(SetLivePrincingEvent event , Emitter<MarketCoinState> emit)async{

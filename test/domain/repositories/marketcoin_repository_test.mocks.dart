@@ -106,4 +106,13 @@ class MockSocketServiceV2 extends _i1.Mock implements _i6.SocketServiceV2 {
         returnValue: _i5.Stream<T>.empty(),
         returnValueForMissingStub: _i5.Stream<T>.empty(),
       ) as _i5.Stream<T>);
+  @override
+  _i5.Future<void> stopListening() => (super.noSuchMethod(
+        Invocation.method(
+          #stopListening,
+          [],
+        ),
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 }
