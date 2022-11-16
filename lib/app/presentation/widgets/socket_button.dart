@@ -15,6 +15,7 @@ class SocketButton extends StatelessWidget {
     final icon  = isActive ? Icons.flash_on : Icons.flash_off;
     final color = isActive ? Colors.green : Colors.red;
     return IconButton(
+      key: const Key('live_pricing_button'),
       onPressed: onPressed,
       icon: Icon(icon, color: color)
     );

@@ -16,16 +16,16 @@ class MarketList extends StatelessWidget {
     return BlocProvider(
       create: (context) => MarketCoinBloc(RepositoryProvider.of<MarketCoinRepository>(context)),
       child: const Scaffold(
-          appBar: _CoinAppBar(),
-          body: Center(child: _CoinTable()),
+          appBar: CoinAppBar(),
+          body: Center(child: CoinTable()),
     ));
   }
 }
 
 
 
-class _CoinAppBar extends StatelessWidget with PreferredSizeWidget {
-  const _CoinAppBar({Key? key,}) : super(key: key);
+class CoinAppBar extends StatelessWidget with PreferredSizeWidget {
+  const CoinAppBar({Key? key,}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -51,8 +51,8 @@ class _CoinAppBar extends StatelessWidget with PreferredSizeWidget {
 }
 
 
-class _CoinTable extends StatelessWidget {
-  const _CoinTable();
+class CoinTable extends StatelessWidget {
+  const CoinTable({super.key});
 
   @override
   Widget build(BuildContext context) {

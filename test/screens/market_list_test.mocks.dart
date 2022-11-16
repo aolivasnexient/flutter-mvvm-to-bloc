@@ -3,13 +3,22 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:ui' as _i6;
+import 'dart:async' as _i11;
+import 'dart:ui' as _i10;
 
+import 'package:betterhodl_flutter/app/logic/market_coin_bloc/market_coin_bloc.dart'
+    as _i7;
+import 'package:betterhodl_flutter/data/adapters/rest_adapter.dart' as _i4;
 import 'package:betterhodl_flutter/data/services/socket_service/socket_service.dart'
     as _i3;
-import 'package:betterhodl_flutter/domain/models/market_coin.dart' as _i5;
+import 'package:betterhodl_flutter/data/services/socket_service/socket_service_v2.dart'
+    as _i5;
+import 'package:betterhodl_flutter/domain/models/market_coin.dart' as _i9;
+import 'package:betterhodl_flutter/domain/repositories/marketcoin_repository.dart'
+    as _i6;
 import 'package:betterhodl_flutter/view_models/market_coins_view_model.dart'
-    as _i4;
+    as _i8;
+import 'package:flutter_bloc/flutter_bloc.dart' as _i12;
 import 'package:http/http.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 
@@ -44,22 +53,65 @@ class _FakeSocketService_1 extends _i1.SmartFake implements _i3.SocketService {
         );
 }
 
+class _FakeRestAdapter_2 extends _i1.SmartFake implements _i4.RestAdapter {
+  _FakeRestAdapter_2(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeSocketServiceV2_3 extends _i1.SmartFake
+    implements _i5.SocketServiceV2 {
+  _FakeSocketServiceV2_3(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeMarketCoinRepository_4 extends _i1.SmartFake
+    implements _i6.MarketCoinRepository {
+  _FakeMarketCoinRepository_4(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeMarketCoinState_5 extends _i1.SmartFake
+    implements _i7.MarketCoinState {
+  _FakeMarketCoinState_5(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
 /// A class which mocks [MarketCoinsViewModel].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockMarketCoinsViewModel extends _i1.Mock
-    implements _i4.MarketCoinsViewModel {
+    implements _i8.MarketCoinsViewModel {
   MockMarketCoinsViewModel() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  Map<String, _i5.MarketCoin> get marketCoinMap => (super.noSuchMethod(
+  Map<String, _i9.MarketCoin> get marketCoinMap => (super.noSuchMethod(
         Invocation.getter(#marketCoinMap),
-        returnValue: <String, _i5.MarketCoin>{},
-      ) as Map<String, _i5.MarketCoin>);
+        returnValue: <String, _i9.MarketCoin>{},
+      ) as Map<String, _i9.MarketCoin>);
   @override
-  set marketCoinMap(Map<String, _i5.MarketCoin>? _marketCoinMap) =>
+  set marketCoinMap(Map<String, _i9.MarketCoin>? _marketCoinMap) =>
       super.noSuchMethod(
         Invocation.setter(
           #marketCoinMap,
@@ -84,12 +136,12 @@ class MockMarketCoinsViewModel extends _i1.Mock
         ),
       ) as _i3.SocketService);
   @override
-  _i4.SortOrders get sortOrder => (super.noSuchMethod(
+  _i8.SortOrders get sortOrder => (super.noSuchMethod(
         Invocation.getter(#sortOrder),
-        returnValue: _i4.SortOrders.marketCapDesc,
-      ) as _i4.SortOrders);
+        returnValue: _i8.SortOrders.marketCapDesc,
+      ) as _i8.SortOrders);
   @override
-  set sortOrder(_i4.SortOrders? _sortOrder) => super.noSuchMethod(
+  set sortOrder(_i8.SortOrders? _sortOrder) => super.noSuchMethod(
         Invocation.setter(
           #sortOrder,
           _sortOrder,
@@ -102,10 +154,10 @@ class MockMarketCoinsViewModel extends _i1.Mock
         returnValue: false,
       ) as bool);
   @override
-  List<_i5.MarketCoin> get marketCoins => (super.noSuchMethod(
+  List<_i9.MarketCoin> get marketCoins => (super.noSuchMethod(
         Invocation.getter(#marketCoins),
-        returnValue: <_i5.MarketCoin>[],
-      ) as List<_i5.MarketCoin>);
+        returnValue: <_i9.MarketCoin>[],
+      ) as List<_i9.MarketCoin>);
   @override
   bool get hasListeners => (super.noSuchMethod(
         Invocation.getter(#hasListeners),
@@ -123,7 +175,7 @@ class MockMarketCoinsViewModel extends _i1.Mock
         [priceData],
       ));
   @override
-  void addListener(_i6.VoidCallback? listener) => super.noSuchMethod(
+  void addListener(_i10.VoidCallback? listener) => super.noSuchMethod(
         Invocation.method(
           #addListener,
           [listener],
@@ -131,7 +183,7 @@ class MockMarketCoinsViewModel extends _i1.Mock
         returnValueForMissingStub: null,
       );
   @override
-  void removeListener(_i6.VoidCallback? listener) => super.noSuchMethod(
+  void removeListener(_i10.VoidCallback? listener) => super.noSuchMethod(
         Invocation.method(
           #removeListener,
           [listener],
@@ -151,6 +203,250 @@ class MockMarketCoinsViewModel extends _i1.Mock
         Invocation.method(
           #notifyListeners,
           [],
+        ),
+        returnValueForMissingStub: null,
+      );
+}
+
+/// A class which mocks [MarketCoinRepository].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockMarketCoinRepository extends _i1.Mock
+    implements _i6.MarketCoinRepository {
+  MockMarketCoinRepository() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  Map<String, _i9.MarketCoin> get marketCoinMap => (super.noSuchMethod(
+        Invocation.getter(#marketCoinMap),
+        returnValue: <String, _i9.MarketCoin>{},
+      ) as Map<String, _i9.MarketCoin>);
+  @override
+  set marketCoinMap(Map<String, _i9.MarketCoin>? _marketCoinMap) =>
+      super.noSuchMethod(
+        Invocation.setter(
+          #marketCoinMap,
+          _marketCoinMap,
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  _i4.RestAdapter get restAdapter => (super.noSuchMethod(
+        Invocation.getter(#restAdapter),
+        returnValue: _FakeRestAdapter_2(
+          this,
+          Invocation.getter(#restAdapter),
+        ),
+      ) as _i4.RestAdapter);
+  @override
+  _i5.SocketServiceV2 get socketService => (super.noSuchMethod(
+        Invocation.getter(#socketService),
+        returnValue: _FakeSocketServiceV2_3(
+          this,
+          Invocation.getter(#socketService),
+        ),
+      ) as _i5.SocketServiceV2);
+  @override
+  _i11.Future<List<_i9.MarketCoin>> fethAllMarketCoin(String? url) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #fethAllMarketCoin,
+          [url],
+        ),
+        returnValue:
+            _i11.Future<List<_i9.MarketCoin>>.value(<_i9.MarketCoin>[]),
+      ) as _i11.Future<List<_i9.MarketCoin>>);
+  @override
+  _i11.Stream<List<_i9.MarketCoin>> dataBaseStream(dynamic url) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #dataBaseStream,
+          [url],
+        ),
+        returnValue: _i11.Stream<List<_i9.MarketCoin>>.empty(),
+      ) as _i11.Stream<List<_i9.MarketCoin>>);
+  @override
+  _i11.Future<void> stopStream() => (super.noSuchMethod(
+        Invocation.method(
+          #stopStream,
+          [],
+        ),
+        returnValue: _i11.Future<void>.value(),
+        returnValueForMissingStub: _i11.Future<void>.value(),
+      ) as _i11.Future<void>);
+  @override
+  List<_i9.MarketCoin> reverseOrder() => (super.noSuchMethod(
+        Invocation.method(
+          #reverseOrder,
+          [],
+        ),
+        returnValue: <_i9.MarketCoin>[],
+      ) as List<_i9.MarketCoin>);
+}
+
+/// A class which mocks [MarketCoinBloc].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockMarketCoinBloc extends _i1.Mock implements _i7.MarketCoinBloc {
+  MockMarketCoinBloc() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i6.MarketCoinRepository get marketCoinRepository => (super.noSuchMethod(
+        Invocation.getter(#marketCoinRepository),
+        returnValue: _FakeMarketCoinRepository_4(
+          this,
+          Invocation.getter(#marketCoinRepository),
+        ),
+      ) as _i6.MarketCoinRepository);
+  @override
+  _i7.MarketCoinState get state => (super.noSuchMethod(
+        Invocation.getter(#state),
+        returnValue: _FakeMarketCoinState_5(
+          this,
+          Invocation.getter(#state),
+        ),
+      ) as _i7.MarketCoinState);
+  @override
+  _i11.Stream<_i7.MarketCoinState> get stream => (super.noSuchMethod(
+        Invocation.getter(#stream),
+        returnValue: _i11.Stream<_i7.MarketCoinState>.empty(),
+      ) as _i11.Stream<_i7.MarketCoinState>);
+  @override
+  bool get isClosed => (super.noSuchMethod(
+        Invocation.getter(#isClosed),
+        returnValue: false,
+      ) as bool);
+  @override
+  dynamic requestEventController(
+    _i7.RequestMarketCoinsEvent? event,
+    _i12.Emitter<_i7.MarketCoinState>? emit,
+  ) =>
+      super.noSuchMethod(Invocation.method(
+        #requestEventController,
+        [
+          event,
+          emit,
+        ],
+      ));
+  @override
+  dynamic sortEventController(
+    _i7.SortMarketCoinsEvent? event,
+    _i12.Emitter<_i7.MarketCoinState>? emit,
+  ) =>
+      super.noSuchMethod(Invocation.method(
+        #sortEventController,
+        [
+          event,
+          emit,
+        ],
+      ));
+  @override
+  dynamic setLiveController(
+    _i7.SetLivePrincingEvent? event,
+    _i12.Emitter<_i7.MarketCoinState>? emit,
+  ) =>
+      super.noSuchMethod(Invocation.method(
+        #setLiveController,
+        [
+          event,
+          emit,
+        ],
+      ));
+  @override
+  void add(_i7.MarketCoinEvent? event) => super.noSuchMethod(
+        Invocation.method(
+          #add,
+          [event],
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  void onEvent(_i7.MarketCoinEvent? event) => super.noSuchMethod(
+        Invocation.method(
+          #onEvent,
+          [event],
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  void emit(_i7.MarketCoinState? state) => super.noSuchMethod(
+        Invocation.method(
+          #emit,
+          [state],
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  void on<E extends _i7.MarketCoinEvent>(
+    _i12.EventHandler<E, _i7.MarketCoinState>? handler, {
+    _i12.EventTransformer<E>? transformer,
+  }) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #on,
+          [handler],
+          {#transformer: transformer},
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  void onTransition(
+          _i12.Transition<_i7.MarketCoinEvent, _i7.MarketCoinState>?
+              transition) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #onTransition,
+          [transition],
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  _i11.Future<void> close() => (super.noSuchMethod(
+        Invocation.method(
+          #close,
+          [],
+        ),
+        returnValue: _i11.Future<void>.value(),
+        returnValueForMissingStub: _i11.Future<void>.value(),
+      ) as _i11.Future<void>);
+  @override
+  void onChange(_i12.Change<_i7.MarketCoinState>? change) => super.noSuchMethod(
+        Invocation.method(
+          #onChange,
+          [change],
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  void addError(
+    Object? error, [
+    StackTrace? stackTrace,
+  ]) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #addError,
+          [
+            error,
+            stackTrace,
+          ],
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  void onError(
+    Object? error,
+    StackTrace? stackTrace,
+  ) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #onError,
+          [
+            error,
+            stackTrace,
+          ],
         ),
         returnValueForMissingStub: null,
       );
