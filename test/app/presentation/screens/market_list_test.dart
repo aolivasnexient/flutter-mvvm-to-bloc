@@ -32,8 +32,6 @@ var marketCoin = MarketCoin(
     atlChangePercentage: -234.00,
     atlDate: DateTime.now());
 
-//class MockMarketListViewModel extends Mock implements MarketCoinsViewModel {}
-
 @GenerateMocks([MarketCoinsViewModel, MarketCoinRepository, MarketCoinBloc])
 void main() {
   testWidgets('MarketCap sort Button', (WidgetTester tester) async {
