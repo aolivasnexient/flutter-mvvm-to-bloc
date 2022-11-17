@@ -1,7 +1,7 @@
 
 import 'dart:io';
 
-import 'package:betterhodl_flutter/data/services/rest_service/rest_service_v2.dart';
+import 'package:betterhodl_flutter/data/services/rest_service/rest_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
@@ -13,10 +13,10 @@ import 'rest_service_test.mocks.dart';
 @GenerateMocks([http.Client])
 void main() {
 
-  late RestServiceV2 restService;
+  late RestService restService;
   final MockClient client = MockClient();
   const url = 'https://nexient.com';
-  setUpAll(() => restService = RestServiceV2(client));
+  setUpAll(() => restService = RestService(client));
 
   const marketJson = '''[
   {

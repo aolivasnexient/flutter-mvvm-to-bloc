@@ -6,7 +6,7 @@
 import 'dart:async' as _i6;
 
 import 'package:betterhodl_flutter/data/adapters/rest_adapter.dart' as _i2;
-import 'package:betterhodl_flutter/data/services/socket_service/socket_service_v2.dart'
+import 'package:betterhodl_flutter/data/services/socket_service/socket_service.dart'
     as _i3;
 import 'package:betterhodl_flutter/domain/models/market_coin.dart' as _i4;
 import 'package:betterhodl_flutter/domain/repositories/marketcoin_repository.dart'
@@ -34,9 +34,8 @@ class _FakeRestAdapter_0 extends _i1.SmartFake implements _i2.RestAdapter {
         );
 }
 
-class _FakeSocketServiceV2_1 extends _i1.SmartFake
-    implements _i3.SocketServiceV2 {
-  _FakeSocketServiceV2_1(
+class _FakeSocketService_1 extends _i1.SmartFake implements _i3.SocketService {
+  _FakeSocketService_1(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -97,13 +96,13 @@ class MockMarketCoinRepository extends _i1.Mock
         ),
       ) as _i2.RestAdapter);
   @override
-  _i3.SocketServiceV2 get socketService => (super.noSuchMethod(
+  _i3.SocketService get socketService => (super.noSuchMethod(
         Invocation.getter(#socketService),
-        returnValue: _FakeSocketServiceV2_1(
+        returnValue: _FakeSocketService_1(
           this,
           Invocation.getter(#socketService),
         ),
-      ) as _i3.SocketServiceV2);
+      ) as _i3.SocketService);
   @override
   _i6.Future<List<_i4.MarketCoin>> fethAllMarketCoin(String? url) =>
       (super.noSuchMethod(

@@ -1,6 +1,6 @@
 
-import 'package:betterhodl_flutter/data/services/rest_service/rest_service_v2.dart';
-import 'package:betterhodl_flutter/data/services/socket_service/socket_service_v2.dart';
+import 'package:betterhodl_flutter/data/services/rest_service/rest_service.dart';
+import 'package:betterhodl_flutter/data/services/socket_service/socket_service.dart';
 import 'package:betterhodl_flutter/domain/models/market_coin.dart';
 import 'package:betterhodl_flutter/domain/repositories/marketcoin_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -9,14 +9,14 @@ import 'package:mockito/mockito.dart';
 import 'marketcoin_repository_test.mocks.dart';
 
 @GenerateNiceMocks([
-  MockSpec<RestServiceV2>(),
-  MockSpec<SocketServiceV2>()
+  MockSpec<RestService>(),
+  MockSpec<SocketService>()
 ])
 void main() {
   
   late MarketCoinRepository marketCoinRepository;
-  final socketService =  MockSocketServiceV2();
-  final restAdapter = MockRestServiceV2();
+  final socketService =  MockSocketService();
+  final restAdapter = MockRestService();
   const url = 'https://nexient.com';
   setUp(() {
      marketCoinRepository = MarketCoinRepository(restAdapter, socketService);

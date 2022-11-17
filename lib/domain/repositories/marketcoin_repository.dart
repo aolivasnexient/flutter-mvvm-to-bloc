@@ -1,5 +1,5 @@
 import 'package:betterhodl_flutter/data/adapters/rest_adapter.dart';
-import 'package:betterhodl_flutter/data/services/socket_service/socket_service_v2.dart';
+import 'package:betterhodl_flutter/data/services/socket_service/socket_service.dart';
 
 import '../models/market_coin.dart';
 
@@ -8,7 +8,7 @@ class MarketCoinRepository {
   Map<String, MarketCoin> marketCoinMap = {};
 
   final RestAdapter restAdapter;
-  final SocketServiceV2 socketService;
+  final SocketService socketService;
 
   MarketCoinRepository(this.restAdapter, this.socketService);
 

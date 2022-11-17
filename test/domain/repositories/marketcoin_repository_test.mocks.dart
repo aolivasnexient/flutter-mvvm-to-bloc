@@ -5,9 +5,9 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i5;
 
-import 'package:betterhodl_flutter/data/services/rest_service/rest_service_v2.dart'
+import 'package:betterhodl_flutter/data/services/rest_service/rest_service.dart'
     as _i4;
-import 'package:betterhodl_flutter/data/services/socket_service/socket_service_v2.dart'
+import 'package:betterhodl_flutter/data/services/socket_service/socket_service.dart'
     as _i6;
 import 'package:http/http.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
@@ -45,10 +45,10 @@ class _FakeWebSocketChannel_1 extends _i1.SmartFake
         );
 }
 
-/// A class which mocks [RestServiceV2].
+/// A class which mocks [RestService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockRestServiceV2 extends _i1.Mock implements _i4.RestServiceV2 {
+class MockRestService extends _i1.Mock implements _i4.RestService {
   @override
   _i2.Client get client => (super.noSuchMethod(
         Invocation.getter(#client),
@@ -72,10 +72,10 @@ class MockRestServiceV2 extends _i1.Mock implements _i4.RestServiceV2 {
       ) as _i5.Future<T>);
 }
 
-/// A class which mocks [SocketServiceV2].
+/// A class which mocks [SocketService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockSocketServiceV2 extends _i1.Mock implements _i6.SocketServiceV2 {
+class MockSocketService extends _i1.Mock implements _i6.SocketService {
   @override
   _i3.WebSocketChannel get channel => (super.noSuchMethod(
         Invocation.getter(#channel),

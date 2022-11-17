@@ -5,10 +5,10 @@ import 'package:http/http.dart' as http;
 import '../../adapters/rest_adapter.dart';
 
 
-class RestServiceV2 implements RestAdapter{
+class RestService implements RestAdapter{
   final http.Client client;
 
-  RestServiceV2(this.client);
+  RestService(this.client);
 
   @override
   Future<T> get<T>(String url) async {
