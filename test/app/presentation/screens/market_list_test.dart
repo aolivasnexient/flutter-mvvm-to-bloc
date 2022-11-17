@@ -3,17 +3,17 @@ import 'package:betterhodl_flutter/domain/models/market_coin.dart';
 import 'package:betterhodl_flutter/app/presentation/screens/market_list.dart';
 import 'package:betterhodl_flutter/domain/repositories/marketcoin_repository.dart';
 import 'package:betterhodl_flutter/helpers/url_helper.dart';
-import 'package:betterhodl_flutter/view_models/market_coins_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import 'market_list_test.mocks.dart';
+import '../../logic/market_coin_bloc/marketcoin_bloc_test.mocks.dart';
 
 
-@GenerateMocks([MarketCoinsViewModel, MarketCoinRepository, MarketCoinBloc])
+
+@GenerateMocks([MarketCoinRepository, MarketCoinBloc])
 void main() {
   testWidgets('MarketCap sort Button', (WidgetTester tester) async {
 

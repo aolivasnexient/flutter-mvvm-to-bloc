@@ -8,7 +8,7 @@ import 'package:http/http.dart' as http;
 
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import '../../view_models/market_coin_view_models_test.mocks.dart';
+import 'rest_service_test.mocks.dart';
 
 @GenerateMocks([http.Client])
 void main() {
