@@ -19,7 +19,7 @@ void main() {
   setUp(() {
     initState = const MarketCoinState(isError: false, isLoading: false, isLivePricing: false, marketCoins: []);
   },);
-  group("Market Bloc -", () {
+  group("MarketCoin Bloc -", () {
     
     blocTest(
       "nothing event -> nothing state" , 
@@ -78,13 +78,12 @@ void main() {
     );
 
     group("market coin stream -", () {
-      
-        
+          
       final data = [
         [MockMarketCoin()], 
         [MockMarketCoin(),MockMarketCoin()] 
       ];
-
+      
       final fakeStream = Stream.fromIterable(data);
       blocTest<MarketCoinBloc, MarketCoinState>(
         "turn on live coin price", 
