@@ -12,25 +12,6 @@ import 'package:mockito/mockito.dart';
 
 import 'market_list_test.mocks.dart';
 
-var marketCoin = MarketCoin(
-    id: 'bitcoin',
-    symbol: 'btc',
-    name: 'Bitcoin',
-    image:
-        'https://assets.coingecko.com/coins/images/8029/large/1_0YusgngOrriVg4ZYx4wOFQ.png?1553483622',
-    currentPrice: 21000.00,
-    marketCap: 60000000000.00,
-    marketCapRank: 1,
-    high24h: 21500.00,
-    low24h: 20500.00,
-    priceChange24h: 1000.00,
-    priceChangePercentage24h: 10.0,
-    ath: 69000.00,
-    athChangePercentage: 69.23,
-    athDate: DateTime.now(),
-    atl: 300.00,
-    atlChangePercentage: -234.00,
-    atlDate: DateTime.now());
 
 @GenerateMocks([MarketCoinsViewModel, MarketCoinRepository, MarketCoinBloc])
 void main() {
