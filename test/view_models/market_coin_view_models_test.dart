@@ -60,6 +60,7 @@ void main() {
   const marketCoinUri =
       'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false';
   const socketUri = 'wss://ws.coincap.io/prices?assets=bitcoin,theta fuel';
+  
   group('market coin view models', () {
     test('that correct request is made to http client', () async {
       final client = MockClient();
